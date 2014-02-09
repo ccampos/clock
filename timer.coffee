@@ -3,7 +3,7 @@ idActivate = null
 timerActivate = (limit) ->
     cur = 0
 
-    log = ->
+    exec = ->
         cur += 1
         console.log '######## activate', cur
         if cur is limit
@@ -11,7 +11,7 @@ timerActivate = (limit) ->
             rect.on 'mouseover.activate', activate
         return
 
-    idActivate = setInterval log, 1000
+    idActivate = setInterval exec, 1000
     return
 
 activate = ->
@@ -32,14 +32,14 @@ idDeactivate = null
 timerDeactivate = (limit) ->
     cur = 0
 
-    log = ->
+    exec = ->
         cur += 1
         console.log '******* deactivate', cur
         if cur is limit
             clearInterval idDeactivate
             rect.on 'mouseout.deactivate', deactivate
 
-    idDeactivate = setInterval log, 1000
+    idDeactivate = setInterval exec, 1000
     return
 
 deactivate = ->
