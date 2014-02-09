@@ -1,31 +1,59 @@
-id = null
+idActivate = null
 
-timer = (whatshouldhappen) ->
+timerActivate = ->
     cur = 0
 
     log = ->
         cur += 1
-        console.log '########log', cur
+        console.log '######## activate', cur
         if cur is 5
-            clearInterval id
-            rect.on 'mouseover', whatshouldhappen
+            clearInterval idActivate
+            rect.on 'mouseover.activate', activate
         return
 
-    id = setInterval log, 1000
+    idActivate = setInterval log, 1000
     return
 
 activate = ->
-    rect.on 'mouseover', null
-    timer()
+    rect.on 'mouseover.activate', null
+    timerActivate()
     return
 
 cancelActivate = ->
-    clearInterval id
-    rect.on 'mouseover', activate
+    clearInterval idActivate
+    rect.on 'mouseover.activate', activate
     return
 
-rect.on 'mouseover', activate
-rect.on 'mouseout', cancelActivate
+rect.on 'mouseover.activate', activate
+rect.on 'mouseout.cancelActivate', cancelActivate
+
+idDeactivate = null
+
+timerDeactivate = ->
+    cur = 0
+
+    log = ->
+        cur += 1
+        console.log '******* deactivate', cur
+        if cur is 5
+            clearInterval idDeactivate
+            rect.on 'mouseout.deactivate', deactivate
+
+    idDeactivate = setInterval log, 1000
+    return
+
+deactivate = ->
+    rect.on 'mouseout.deactivate', null
+    timerDeactivate()
+    return
+
+cancelDeactivate = ->
+    clearInterval idDeactivate
+    rect.on 'mouseout.deactivate', deactivate
+    return
+
+rect.on 'mouseout.deactivate', deactivate
+rect.on 'mouseover.cancelDeactivate', cancelDeactivate
 
 # mouseover
 # - activate
