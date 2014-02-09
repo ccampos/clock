@@ -1,39 +1,36 @@
-red = '#ee3124'
+id = null
 
-svg = d3.select('body').append('svg')
-    .style('background', '#cccccc')
-    .attr('width', 300)
-    .attr('height', 300)
+timer = (whatshouldhappen) ->
+    cur = 0
 
-rect = svg.append('rect')
-    .style('fill', 'none')
-    .style('stroke', '#3333ff')
-    .style('stroke-width', 6)
-    .attr('width', 100)
-    .attr('height', 70)
-    .attr('x', 100)
-    .attr('y', 100)
-    .attr('rx', 3)
-    .attr('ry', 3)
+    log = ->
+        cur += 1
+        console.log '########log', cur
+        if cur is 5
+            clearInterval id
+            rect.on 'mouseover', whatshouldhappen
+        return
 
-rect.on 'mouseover', ->
-    console.log 'rectovery'
+    id = setInterval log, 1000
+    return
+
+activate = ->
     rect.on 'mouseover', null
+    timer()
+    return
 
-rect.on 'mouseout', ->
-    console.log 'rectouty'
-    rect.on 'mouseout', null
+cancelActivate = ->
+    clearInterval id
+    rect.on 'mouseover', activate
+    return
 
-circle = svg.append('circle')
-    .style('fill', 'none')
-    .style('stroke', '#ff3333')
-    .style('stroke-width', 3)
-    .attr('cx', 200)
-    .attr('cy', 140)
-    .attr('r', 20)
+rect.on 'mouseover', activate
+rect.on 'mouseout', cancelActivate
 
-circle.on 'mouseover', ->
-    console.log 'circlyovery'
+# mouseover
+# - activate
+# - cancel De-Activate
 
-circle.on 'mouseout', ->
-    console.log 'circlyouty'
+# mouseout
+# - deactivate
+# - cancel Activate
