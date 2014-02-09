@@ -3,13 +3,13 @@ var activate, cancelActivate, cancelDeactivate, deactivate, idActivate, idDeacti
 
 idActivate = null;
 
-timerActivate = function() {
+timerActivate = function(limit) {
   var cur, log;
   cur = 0;
   log = function() {
     cur += 1;
     console.log('######## activate', cur);
-    if (cur === 5) {
+    if (cur === limit) {
       clearInterval(idActivate);
       rect.on('mouseover.activate', activate);
     }
@@ -19,7 +19,7 @@ timerActivate = function() {
 
 activate = function() {
   rect.on('mouseover.activate', null);
-  timerActivate();
+  timerActivate(4);
 };
 
 cancelActivate = function() {
@@ -33,13 +33,13 @@ rect.on('mouseout.cancelActivate', cancelActivate);
 
 idDeactivate = null;
 
-timerDeactivate = function() {
+timerDeactivate = function(limit) {
   var cur, log;
   cur = 0;
   log = function() {
     cur += 1;
     console.log('******* deactivate', cur);
-    if (cur === 5) {
+    if (cur === limit) {
       clearInterval(idDeactivate);
       return rect.on('mouseout.deactivate', deactivate);
     }
@@ -49,7 +49,7 @@ timerDeactivate = function() {
 
 deactivate = function() {
   rect.on('mouseout.deactivate', null);
-  timerDeactivate();
+  timerDeactivate(4);
 };
 
 cancelDeactivate = function() {
