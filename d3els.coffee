@@ -1,12 +1,12 @@
-width = 300
-height = 300
+width = 700
+height = width
 hours = [1..12]
 red = '#ff3333'
-blue = '#33cf33'
+green = '#33cf33'
 
 cx = width / 2
-cy = height / 2
-radius = 80
+cy = cx
+radius = width / 3
 diameter = radius * 2
 circumference = Math.PI * diameter
 
@@ -25,17 +25,17 @@ toRadians = (degrees) ->
 coords70 = calcCoords cx, cy, radius, toRadians 70
 
 # degrees between each hour
-degreesPerHour = 360 / 12
+degreesPerHour = 360 / hours.length
 
 addCirclePoint = (degrees) ->
     coords = calcCoords cx, cy, radius, toRadians degrees
     svg.append('circle')
         .style('fill', 'none')
-        .style('stroke', blue)
-        .style('stroke-width', 3)
+        .style('stroke', green)
+        .style('stroke-width', Math.ceil(radius / 50))
         .attr('cx', coords.x)
         .attr('cy', coords.y)
-        .attr('r', 3)
+        .attr('r', Math.random() * radius / 6)
 
 svg = d3.select('body').append('svg')
     .style('background', '#cccccc')
@@ -44,8 +44,8 @@ svg = d3.select('body').append('svg')
 
 center = svg.append('circle')
     .style('fill', 'none')
-    .style('stroke', blue)
-    .style('stroke-width', 3)
+    .style('stroke', red)
+    .style('stroke-width', 1)
     .attr('cx', cx)
     .attr('cy', cy)
     .attr('r', 3)
